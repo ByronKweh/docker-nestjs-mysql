@@ -1,0 +1,41 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js Testing
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql
+        ports:
+          - '3306:3306'
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: develop
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14.17.0
+          cache: 'yarn'
+      - run: yarn install --immutable
+      - run: |
+          echo "DATABASE_URL=mysql://root:password@localhost/develop" > ./prisma/.env
+      - name: prepare
+        run: |
+          yarn db:apply
+          yarn db:seed
+      - run: yarn test
+      - run: yarn test:e2e
