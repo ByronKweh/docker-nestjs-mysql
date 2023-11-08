@@ -10,7 +10,7 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
-import { ItemDto } from '../../../services/item/item.dto';
+import { ItemDto } from '../../../services/item/resume.dto';
 import { ItemService } from '../../../services/item/item.service';
 
 @Controller('api/v1/items')

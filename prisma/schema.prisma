@@ -8,7 +8,7 @@ generator client {
   binaryTargets = ["native", "darwin", "debian-openssl-1.1.x", "linux-arm64-openssl-3.0.x"]
 }
 
-model Item {
+model Resume {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -23,8 +23,19 @@ model Account {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  password  String
+  email     String   @unique
   avatarUrl String?
-  Item      Item[]
+  Resume    Resume[]
+  Jobs      Jobs[]
+}
+
+model Jobs {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+  created_by_id Int
+  created_by    Account  @relation(fields: [created_by_id], references: [id])
 }
 
 datasource db {

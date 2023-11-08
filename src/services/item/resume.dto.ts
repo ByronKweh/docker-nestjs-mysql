@@ -1,12 +1,12 @@
-import { Item } from '@prisma/client';
+import { Resume } from '@prisma/client';
 
-export class ItemDto {
+export class ResumeDTO {
   id: number;
   content: string | null;
   updatedAt: Date;
   createdAt: Date;
 
-  constructor({ id, content, updatedAt, createdAt }: Item) {
+  constructor({ id, content, updatedAt, createdAt }: Resume) {
     this.id = id;
     this.content = content;
     this.updatedAt = updatedAt;
