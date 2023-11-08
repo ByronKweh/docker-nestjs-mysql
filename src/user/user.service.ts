@@ -7,6 +7,7 @@ import { PrismaService } from '../services/prisma/prisma.service';
 import { LoginUserDTO } from './user.controller';
 import { JwtService } from '@nestjs/jwt';
 import { Resume } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 export class ResumeDTO {
   id: number;
@@ -22,7 +23,6 @@ export class ResumeDTO {
   }
 }
 
-const bcrypt = require('bcryptjs');
 @Injectable()
 export class UserService {
   constructor(
