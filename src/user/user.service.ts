@@ -1,10 +1,34 @@
-import { Injectable } from '@nestjs/common';
-import { ResumeDTO } from 'src/services/item/resume.dto';
-import { PrismaService } from 'src/services/prisma/prisma.service';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { PrismaService } from '../services/prisma/prisma.service';
+import { LoginUserDTO } from './user.controller';
+import { JwtService } from '@nestjs/jwt';
+import { Resume } from '@prisma/client';
 
+export class ResumeDTO {
+  id: number;
+  content: string | null;
+  updatedAt: Date;
+  createdAt: Date;
+
+  constructor({ id, content, updatedAt, createdAt }: Resume) {
+    this.id = id;
+    this.content = content;
+    this.updatedAt = updatedAt;
+    this.createdAt = createdAt;
+  }
+}
+
+const bcrypt = require('bcryptjs');
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+  ) {}
 
   //TODO move the resume to a job seeking domain later
 
@@ -30,5 +54,51 @@ export class UserService {
     }
 
     return new ResumeDTO(item);
+  }
+
+  //TODO (Resume) end
+
+  // TODO Move to a generalized util
+
+  async getUserByEmail(email: string) {
+    const user = await this.prisma.account.findFirst({
+      where: {
+        email: email,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
+  }
+
+  //TODO END
+
+  async validatePassword(password: string, hashed_password: string) {
+    return bcrypt.compare(password, hashed_password);
+  }
+
+  async login(loginUserDTO: LoginUserDTO) {
+    const user = await this.getUserByEmail(loginUserDTO.email);
+
+    const is_correct_password = await this.validatePassword(
+      loginUserDTO.password,
+      user.password,
+    );
+
+    if (!is_correct_password) {
+      throw new BadRequestException('Username or password is incorrect');
+    }
+
+    return await this.signJwt(user.email);
+  }
+
+  async signJwt(email: string) {
+    const payload = { email };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 }

@@ -1,7 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { UserService } from './user.service';
 
-export class CreateUserDto {
+export class LoginUserDTO {
   @IsEmail()
   @IsNotEmpty()
   email!: string;
@@ -13,8 +14,10 @@ export class CreateUserDto {
 
 @Controller('user')
 export class UserController {
+  constructor(private userService: UserService) {}
+
   @Post('/login')
-  async index(@Body() createUserDto: CreateUserDto) {
-    return { healthz: true };
+  async index(@Body() loginUserDTO: LoginUserDTO) {
+    return await this.userService.login(loginUserDTO);
   }
 }
