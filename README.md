@@ -9,6 +9,21 @@
 
 Application template for [NestJS](https://github.com/nestjs/nest) + Docker + Prisma + MySQL
 
+## Features
+
+Gurulab backend core-service with:
+
+- 📱 [**NestJS**](https://docs.nestjs.com/) — latest version
+- 🎉 [**TypeScript**](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html) - Type checking
+- ⚙️ [**Dotenv**](https://docs.nestjs.com/techniques/configuration) - Supports environment variables
+- 🗝 [**Authentication**](https://docs.nestjs.com/security/encryption-and-hashing) - JWT, Bcrypt
+- 🏪 [**Prisma**](https://www.prisma.io/docs) - Database ORM
+- 🏪 [**MySQL**](https://dev.mysql.com/doc/) - Open-Source Relational Database
+- 📃 [**Swagger**](https://swagger.io/docs/) - API Documentation
+- 📏 [**ESLint**](https://eslint.org/docs/latest/) — Pluggable JavaScript linter
+- 💖 [**Prettier**](https://prettier.io/docs/en/) - Opinionated Code Formatter
+- 📝 [**Jest**](https://docs.nestjs.com/fundamentals/testing) - Testing framework
+
 ## Setup
 
 ```bash
