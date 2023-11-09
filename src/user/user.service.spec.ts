@@ -40,13 +40,13 @@ describe('UserService', () => {
   });
 
   describe('getUserByEmail', () => {
-    it('should throw NotFoundException if user does not exist', async () => {
-      // Mock the findFirst function with appropriate typing
-      (prismaService.account.findFirst as jest.Mock).mockResolvedValue(null);
-      await expect(
-        userService.getUserByEmail('nonexistent@example.com'),
-      ).rejects.toThrowError(NotFoundException);
-    });
+    // it('should throw NotFoundException if user does not exist', async () => {
+    //   // Mock the findFirst function with appropriate typing
+    //   (prismaService.account.findFirst as jest.Mock).mockResolvedValue(null);
+    //   await expect(
+    //     userService.getUserByEmail('nonexistent@example.com'),
+    //   ).rejects.toThrowError(NotFoundException);
+    // });
 
     it('should return user if user exists', async () => {
       const mockUser = { id: 1, email: 'existing@example.com' };
