@@ -11,7 +11,7 @@ Application template for [NestJS](https://github.com/nestjs/nest) + Docker + Pri
 
 ## Features
 
-Gurulab backend core-service with:
+Backend core-service with:
 
 - 📱 [**NestJS**](https://docs.nestjs.com/) — latest version
 - 🎉 [**TypeScript**](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html) - Type checking
