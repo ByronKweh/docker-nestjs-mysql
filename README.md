@@ -26,6 +26,8 @@ Backend core-service with:
 
 ## Setup
 
+#### Please install Docker and node before trying to start this project! 
+
 ```bash
 # install
 $ yarn
