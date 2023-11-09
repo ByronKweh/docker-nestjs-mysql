@@ -9,14 +9,15 @@ generator client {
 }
 
 model Resume {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  account   Account  @relation(fields: [accountId], references: [id])
-  accountId Int
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  title      String   @db.VarChar(255)
+  content    String?
+  published  Boolean  @default(false)
+  resume_url String
+  account    Account  @relation(fields: [accountId], references: [id])
+  accountId  Int
 }
 
 model Account {
@@ -32,6 +33,8 @@ model Account {
 
 model Jobs {
   id            Int      @id @default(autoincrement())
+  title         String
+  description   String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @default(now())
   created_by_id Int
