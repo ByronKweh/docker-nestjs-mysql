@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { UserService } from './user.service';
-import { AuthGuard } from '@app/guards/auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';

@@ -19,6 +19,7 @@ describe('UserService', () => {
             account: {
               findFirst: jest.fn(),
             },
+            $queryRaw: jest.fn(),
           },
         },
         {
@@ -51,9 +52,7 @@ describe('UserService', () => {
     it('should return user if user exists', async () => {
       const mockUser = { id: 1, email: 'existing@example.com' };
       // Mock the findFirst function with appropriate typing
-      (prismaService.account.findFirst as jest.Mock).mockResolvedValue(
-        mockUser,
-      );
+      (prismaService.$queryRaw as jest.Mock).mockResolvedValue(mockUser);
       const user = await userService.getUserByEmail('existing@example.com');
       expect(user).toEqual(mockUser);
     });
